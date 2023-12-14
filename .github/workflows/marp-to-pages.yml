@@ -9,9 +9,11 @@ on:
       - reopened
       - synchronize
       - closed
+
 permissions:
+  contents: write
   pull-request: write
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,7 +25,7 @@ jobs:
       - name: Copy images
         run: mkdir build && cp -R img build/img
 
-      - name: Marp Build (README) - HTML
+      - name: Marp Build (README)
         uses: docker://marpteam/marp-cli:latest
         with:
           args: README.md -o build/index.html
@@ -45,3 +47,4 @@ jobs:
           branch: gh-pages
           folder: ./build/
           clean-exclude: pr-preview/
+
